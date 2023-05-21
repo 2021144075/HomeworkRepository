@@ -11,25 +11,151 @@
         <form method = "get" autocomplete = "on" action = "http://www.example2.com">
 
         <div class="navigation">
-        <p><div class="w1">메인 페이지</div><div class="w2"><a href = "https://2021144075.github.io/HomeworkRepository/LAB3/signup.html">회원가입화면 바로가기 </a></div> <div class="w3"></div><a href = "https://2021144075.github.io/HomeworkRepository/LAB3/login.html">로그인화면 바로가기</a></div></p>
+        <p><div class="w1">메인 페이지</div><div class="w2"><a href = "https://2021144075.github.io/HomeworkRepository/LAB4/signup.html">회원가입화면 바로가기 </a></div> <div class="w3"></div><a href = "https://2021144075.github.io/HomeworkRepository/LAB4/login.html">로그인화면 바로가기</a></div></p>
         </div>
 
         <div class="main">
         <p><h2>HTML</h2></p>
             <div class="col">
-                <div class="firstcol">
-                    <img src="item1.png" alt="item1" width="100" height="100" class="image1" onload="alert(' 덧니 햄토리 이미지가 로드되었습니다.');" onerror="alert('이미지 로드 중 오류가 발생했습니다.');">
-                    <div class="image2"><img src="item2.png" alt="item2" width="100" height="100" onload="alert('삽을 든 햄토리 이미지가 로드되었습니다.');" onerror="alert('이미지 로드 중 오류가 발생했습니다.');"><div class = "text"><h2>햄토리</h2></div></div></div>
-                <div class="seccol">
-                    <img src="item3.png" alt="item3" width="100" height="100">
-                    <img src="item4.png" alt="item4" width="100" height="100"></div>
-                <div class="thirdcol">
-                    <img src="item5.png" alt="item5" width="100" height="100">
-                    <img src="item6.png" alt="item6" width="100" height="100"></div>
-                <div class="fourthcol">
-                    <img src="item7.png" alt="item7" width="100" height="100">
-                    <img src="item8.png" alt="item8" width="100" height="100"></div>
+                <img src="item1.png" alt="item1" width="100" height="100" onclick="displayText1()"><div class="text" id="textContainer1"></div>
+                <img src="item2.png" alt="item2" width="100" height="100" onclick="displayText2()"><div class="text" id="textContainer2"></div>
+
+                <img src="item3.png" alt="item3" width="100" height="100" onclick="displayText3()"><div class="text" id="textContainer3"></div>
+                <img src="item4.png" alt="item4" width="100" height="100" onclick="displayText4()"><div class="text" id="textContainer4"></div>
+
+                <img src="item5.png" alt="item5" width="100" height="100" onclick="displayText5()"><div class="text" id="textContainer5"></div>
+                <img src="item6.png" alt="item6" width="100" height="100" onclick="displayText6()"><div class="text" id="textContainer6"></div>
+
+                <img src="item7.png" alt="item7" width="100" height="100" onclick="displayText7()"><div class="text" id="textContainer7"></div>
+                <img src="item8.png" alt="item8" width="100" height="100" onclick="displayText8()"><div class="text" id="textContainer8"></div>
             </div>
+        <script>
+            function displayText1() {
+                fetch('product.json')
+                    .then(response => response.json())
+                    .then(jsonData => {
+                        var information = jsonData.products;
+                        var selectedInfo = products.find(item => item.id === 1); // id가 1인 경우 선택
+          
+                        if (selectedInfo) {
+                            var textContainer = document.getElementById("textContainer1");
+                            textContainer.innerHTML = selectedInfo.description;
+                        }
+                    })
+                    .catch(error => console.log(error));
+            } 
+            
+            function displayText2() {
+                fetch('product.json')
+                    .then(response => response.json())
+                    .then(jsonData => {
+                        var information = jsonData.products;
+                        var selectedInfo = products.find(item => item.id === 2); // id가 1인 경우 선택
+          
+                        if (selectedInfo) {
+                            var textContainer = document.getElementById("textContainer2");
+                            textContainer.innerHTML = selectedInfo.description;
+                        }
+                    })
+                    .catch(error => console.log(error));
+            }
+
+            function displayText3() {
+                fetch('product.json')
+                    .then(response => response.json())
+                    .then(jsonData => {
+                        var information = jsonData.products;
+                        var selectedInfo = products.find(item => item.id === 3); // id가 1인 경우 선택
+          
+                        if (selectedInfo) {
+                            var textContainer = document.getElementById("textContainer3");
+                            textContainer.innerHTML = selectedInfo.description;
+                        }
+                    })
+                    .catch(error => console.log(error));
+            }
+
+            function displayText4() {
+                fetch('product.json')
+                    .then(response => response.json())
+                    .then(jsonData => {
+                        var information = jsonData.products;
+                        var selectedInfo = products.find(item => item.id === 4); // id가 1인 경우 선택
+          
+                        if (selectedInfo) {
+                            var textContainer = document.getElementById("textContainer4");
+                            textContainer.innerHTML = selectedInfo.description;
+                        }
+                    })
+                    .catch(error => console.log(error));
+            }
+
+            function displayText5() {
+                fetch('product.json')
+                    .then(response => response.json())
+                    .then(jsonData => {
+                        var information = jsonData.products;
+                        var selectedInfo = products.find(item => item.id === 5); // id가 1인 경우 선택
+          
+                        if (selectedInfo) {
+                            var textContainer = document.getElementById("textContainer5");
+                            textContainer.innerHTML = selectedInfo.description;
+                        }
+                    })
+                    .catch(error => console.log(error));
+            }
+
+            function displayText6() {
+                fetch('product.json')
+                    .then(response => response.json())
+                    .then(jsonData => {
+                        var information = jsonData.products;
+                        var selectedInfo = products.find(item => item.id === 6); // id가 1인 경우 선택
+          
+                        if (selectedInfo) {
+                            var textContainer = document.getElementById("textContainer6");
+                            textContainer.innerHTML = selectedInfo.description;
+                        }
+                    })
+                    .catch(error => console.log(error));
+            }
+
+            function displayText7() {
+                fetch('product.json')
+                    .then(response => response.json())
+                    .then(jsonData => {
+                        var information = jsonData.products;
+                        var selectedInfo = products.find(item => item.id === 7); // id가 1인 경우 선택
+          
+                        if (selectedInfo) {
+                            var textContainer = document.getElementById("textContainer7");
+                            textContainer.innerHTML = selectedInfo.description;
+                        }
+                    })
+                    .catch(error => console.log(error));
+            }
+
+            function displayText8() {
+                fetch('product.json')
+                    .then(response => response.json())
+                    .then(jsonData => {
+                        var information = jsonData.products;
+                        var selectedInfo = products.find(item => item.id === 8); // id가 1인 경우 선택
+          
+                        if (selectedInfo) {
+                            var textContainer = document.getElementById("textContainer8");
+                            textContainer.innerHTML = selectedInfo.description;
+                        }
+                    })
+                    .catch(error => console.log(error));
+            }
+
+    
+
+        </script>
+
+
+
             <h2> 마캇컬리 소개</h2>
             <div class="lastrow">
                 첫번째 문단
