@@ -42,26 +42,6 @@ h1 {
     color: blue;
 }
 
-.animation {
-    max-width: 1024px;
-    animation-name: movingtext;
-    animation-duration: 2s;
-} 
-
-@keyframes movingtext
-{
-    0%   {opacity: 0; transform: translateX(100%)}
-    100% {opacity: 1; transform: translateX(0%)}
-}
-
-.image1:hover {
-    transform: scale(1.5);
-    transition: transform 2s ease-in-out; 
-}
-
-.image2 {
-    position: relative;
-}
 
 .text {
     position: absolute;
@@ -70,50 +50,85 @@ h1 {
     opacity: 0;
 
 }
+
+.image1 {
+    position: relative;
+}
+
+
+.image1:hover .text{
+    opacity: 1;
+}
+
+.image2 {
+    position: relative;
+}
+
+
 .image2:hover .text{
     opacity: 1;
 }
 
-.firstcol{
-    height: 50vh;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: row;
-    align-items: first baseline;
-    justify-content: center;
+.image3 {
+    position: relative;
 }
 
-.seccol{
-    height: 50vh;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: row;
-    align-items: first baseline;
-    justify-content: center;
+
+.image3:hover .text{
+    opacity: 1;
 }
 
-.thirdcol{
-    height: 50vh;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: row;
-    align-items: first baseline;
-    justify-content: center;
+.image4 {
+    position: relative;
 }
 
-.fourthcol{
-    height: 50vh;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: row;
-    align-items: first baseline;
-    justify-content: center;
+
+.image4:hover .text{
+    opacity: 1;
+}
+
+.image5 {
+    position: relative;
+}
+
+
+.image5:hover .text{
+    opacity: 1;
+}
+
+.image6 {
+    position: relative;
+}
+
+
+.image6:hover .text{
+    opacity: 1;
+}
+
+.image7 {
+    position: relative;
+}
+
+
+.image7:hover .text{
+    opacity: 1;
+}
+
+.image8 {
+    position: relative;
+}
+
+
+.image8:hover .text{
+    opacity: 1;
 }
 
 .col{
-    display: flex;
-    flex-flow: row;
-
+    flex-direction: row;
+    align-items: first baseline;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr)
 }
 
 .lastrow{
