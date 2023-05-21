@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <title>Internet item shop</title>
         <link rel = "stylesheet" type = "text/css" href="main.css">
+        
     </head>
     <body>
         <div class="animation">
@@ -14,145 +15,176 @@
         <p><div class="w1">메인 페이지</div><div class="w2"><a href = "https://2021144075.github.io/HomeworkRepository/LAB4/signup.html">회원가입화면 바로가기 </a></div> <div class="w3"></div><a href = "https://2021144075.github.io/HomeworkRepository/LAB4/login.html">로그인화면 바로가기</a></div></p>
         </div>
 
+        <script>
+            fetch('product.json') 
+            .then(response => response.json()) 
+            .then(post => {
+                prod = post;
+                init(prod);})
+
+            .catch(error => {console.log(error)})
+           
+
+            // infinit scroll 구현
+
+            var page = 1;
+            var isLoading = false;
+
+            function loadProducts() {
+                if (isLoading) return;
+            
+                isLoading = true;
+                document.getElementById('loading').style.display = 'block';
+
+            
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var products = JSON.parse(xhr.responseText);
+
+                  
+                        var productList = document.getElementById('product-list');
+                        for (var i = 0; i < products.length; i++) {
+                            var product = products[i];
+                            var productElement = document.createElement('div');
+                            productElement.textContent = product.name;
+                            productList.appendChild(productElement);
+                        }
+
+                        
+                        isLoading = false;
+                        document.getElementById('loading').style.display = 'none';
+                    }
+                };
+                xhr.open('GET', 'products.json?page=' + page, true);
+                xhr.send();
+
+                page++;
+            }
+
+            window.onscroll = function() {
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                    loadProducts();
+                }
+            };
+
+           
+            loadProducts();
+
+                        
+            let products = [];
+            
+            let filteredProducts = []; 
+            let currentCategory = "All"; 
+            let currentSort = "Default"; 
+
+            
+            function fetchJSON() {
+            fetch('product.json')
+                .then(response => response.json())
+                .then(data => {
+                products = data.products;
+                filteredProducts = [...products]; 
+                displayProducts();
+                })
+                .catch(error => {
+                console.error('Error:', error);
+                });
+            }
+
+            
+            function displayProducts() {
+            const container = document.getElementById('productContainer');
+            container.innerHTML = ""; 
+
+            filteredProducts.forEach(product => {
+                const productDiv = document.createElement('div');
+                const name = document.createElement('p');
+                name.textContent = product.name;
+                const category = document.createElement('p');
+                category.textContent = product.category;
+                const description = document.createElement('p');
+                description.textContent = product.description;
+
+                productDiv.appendChild(name);
+                productDiv.appendChild(category);
+                productDiv.appendChild(description);
+                container.appendChild(productDiv);
+            });
+            }
+
+            // 키워드 검색
+            function searchProducts(keyword) {
+            const lowerKeyword = keyword.toLowerCase();
+            filteredProducts = products.filter(product => {
+                const lowerName = product.name.toLowerCase();
+                return lowerName.includes(lowerKeyword);
+            });
+            applyCategoryFilter(currentCategory);
+            applySort(currentSort);
+            displayProducts();
+            }
+
+            // 카테고리 필터링
+            function applyCategoryFilter(category) {
+            currentCategory = category;
+            if (category === "All") {
+                filteredProducts = [...products]; 
+            } else {
+                filteredProducts = products.filter(product => product.category === category);
+            }
+            applySort(currentSort);
+            displayProducts();
+            }
+
+            // 정렬
+            function applySort(sortBy) {
+            currentSort = sortBy;
+            if (sortBy === "Default") {
+                // 기본 정렬
+                filteredProducts = [...filteredProducts];
+            } else if (sortBy === "up") {
+                // 오름차순
+                filteredProducts = filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortBy === "down") {
+                // 내림차순
+                filteredProducts = filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+            }
+            displayProducts();
+            }
+
+         
+            fetchJSON();
+
+                // 클릭 이벤트
+            const productElements = document.querySelectorAll('.product');
+            productElements.forEach(productElement => {
+                productElement.addEventListener('click', () => {
+                    const descriptionElement = productElement.querySelector('.description');
+                    descriptionElement.classList.toggle('show');
+                });
+            });
+                
+        </script>
+
         <div class="main">
         <p><h2>HTML</h2></p>
-            <div class="col">
-                <img src="item1.png" alt="item1" width="100" height="100" onclick="displayText1()"><div class="text" id="textContainer1"></div>
-                <img src="item2.png" alt="item2" width="100" height="100" onclick="displayText2()"><div class="text" id="textContainer2"></div>
+            <div class="product">
+                <div class="image1"><img src="item1.png" alt="item1" width="100" height="100" ><div class="text" data-id="1"></div><p class="description"><div class = "text">갈색 실눈을 뜬 햄토리다.  9.99달러</div></p></div>
+                <div class="image2"><img src="item2.png" alt="item2" width="100" height="100" ><div class="text" data-id="2"></div><p class="description"><div class = "text">검은색 큰눈 뚱토리다.  7.99달러</div></p></div>
 
-                <img src="item3.png" alt="item3" width="100" height="100" onclick="displayText3()"><div class="text" id="textContainer3"></div>
-                <img src="item4.png" alt="item4" width="100" height="100" onclick="displayText4()"><div class="text" id="textContainer4"></div>
+                <div class="image3"><img src="item3.png" alt="item3" width="100" height="100" ><div class="text" data-id="3"></div><p class="description"><div class = "text">주황색 실눈 햄토리다.  10.99달러</div></p></div>
+                <div class="image4"><img src="item4.png" alt="item4" width="100" height="100" ><div class="text" data-id="4"></div><p class="description"><div class = "text">흰색 큰눈 햄토리다.  6.99달러</div></p></div>
 
-                <img src="item5.png" alt="item5" width="100" height="100" onclick="displayText5()"><div class="text" id="textContainer5"></div>
-                <img src="item6.png" alt="item6" width="100" height="100" onclick="displayText6()"><div class="text" id="textContainer6"></div>
+                <div class="image5"><img src="item5.png" alt="item5" width="100" height="100" ><div class="text" data-id="5"></div><p class="description"><div class = "text">주황색 큰눈 햄토리다.  15.99달러</div></p></div>
+                <div class="image6"><img src="item6.png" alt="item6" width="100" height="100" ><div class="text" data-id="6"></div><p class="description"><div class = "text">회색 졸린눈 뚱토리다.  3.99달러</div></p></div>
 
-                <img src="item7.png" alt="item7" width="100" height="100" onclick="displayText7()"><div class="text" id="textContainer7"></div>
-                <img src="item8.png" alt="item8" width="100" height="100" onclick="displayText8()"><div class="text" id="textContainer8"></div>
+                <div class="image7"><img src="item7.png" alt="item7" width="100" height="100" ><div class="text" data-id="7"></div><p class="description"><div class = "text">노랑색 큰눈 뚱토리다.  5.99달러</div></p></div>
+                <div class="image8"><img src="item8.png" alt="item8" width="100" height="100" ><div class="text" data-id="8"></div><p class="description"><div class = "text">회색 큰눈 햄토리다.  12.99달러</div></p></div>
             </div>
-        <script>
-            function displayText1() {
-                fetch('product.json')
-                    .then(response => response.json())
-                    .then(jsonData => {
-                        var information = jsonData.products;
-                        var selectedInfo = products.find(item => item.id === 1); // id가 1인 경우 선택
-          
-                        if (selectedInfo) {
-                            var textContainer = document.getElementById("textContainer1");
-                            textContainer.innerHTML = selectedInfo.description;
-                        }
-                    })
-                    .catch(error => console.log(error));
-            } 
-            
-            function displayText2() {
-                fetch('product.json')
-                    .then(response => response.json())
-                    .then(jsonData => {
-                        var information = jsonData.products;
-                        var selectedInfo = products.find(item => item.id === 2); // id가 1인 경우 선택
-          
-                        if (selectedInfo) {
-                            var textContainer = document.getElementById("textContainer2");
-                            textContainer.innerHTML = selectedInfo.description;
-                        }
-                    })
-                    .catch(error => console.log(error));
-            }
+        
+            <div id="productContainer"></div>
 
-            function displayText3() {
-                fetch('product.json')
-                    .then(response => response.json())
-                    .then(jsonData => {
-                        var information = jsonData.products;
-                        var selectedInfo = products.find(item => item.id === 3); // id가 1인 경우 선택
-          
-                        if (selectedInfo) {
-                            var textContainer = document.getElementById("textContainer3");
-                            textContainer.innerHTML = selectedInfo.description;
-                        }
-                    })
-                    .catch(error => console.log(error));
-            }
-
-            function displayText4() {
-                fetch('product.json')
-                    .then(response => response.json())
-                    .then(jsonData => {
-                        var information = jsonData.products;
-                        var selectedInfo = products.find(item => item.id === 4); // id가 1인 경우 선택
-          
-                        if (selectedInfo) {
-                            var textContainer = document.getElementById("textContainer4");
-                            textContainer.innerHTML = selectedInfo.description;
-                        }
-                    })
-                    .catch(error => console.log(error));
-            }
-
-            function displayText5() {
-                fetch('product.json')
-                    .then(response => response.json())
-                    .then(jsonData => {
-                        var information = jsonData.products;
-                        var selectedInfo = products.find(item => item.id === 5); // id가 1인 경우 선택
-          
-                        if (selectedInfo) {
-                            var textContainer = document.getElementById("textContainer5");
-                            textContainer.innerHTML = selectedInfo.description;
-                        }
-                    })
-                    .catch(error => console.log(error));
-            }
-
-            function displayText6() {
-                fetch('product.json')
-                    .then(response => response.json())
-                    .then(jsonData => {
-                        var information = jsonData.products;
-                        var selectedInfo = products.find(item => item.id === 6); // id가 1인 경우 선택
-          
-                        if (selectedInfo) {
-                            var textContainer = document.getElementById("textContainer6");
-                            textContainer.innerHTML = selectedInfo.description;
-                        }
-                    })
-                    .catch(error => console.log(error));
-            }
-
-            function displayText7() {
-                fetch('product.json')
-                    .then(response => response.json())
-                    .then(jsonData => {
-                        var information = jsonData.products;
-                        var selectedInfo = products.find(item => item.id === 7); // id가 1인 경우 선택
-          
-                        if (selectedInfo) {
-                            var textContainer = document.getElementById("textContainer7");
-                            textContainer.innerHTML = selectedInfo.description;
-                        }
-                    })
-                    .catch(error => console.log(error));
-            }
-
-            function displayText8() {
-                fetch('product.json')
-                    .then(response => response.json())
-                    .then(jsonData => {
-                        var information = jsonData.products;
-                        var selectedInfo = products.find(item => item.id === 8); // id가 1인 경우 선택
-          
-                        if (selectedInfo) {
-                            var textContainer = document.getElementById("textContainer8");
-                            textContainer.innerHTML = selectedInfo.description;
-                        }
-                    })
-                    .catch(error => console.log(error));
-            }
-
-    
-
-        </script>
 
 
 
