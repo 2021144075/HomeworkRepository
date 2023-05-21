@@ -1,0 +1,56 @@
+{
+    "products": [
+      {
+        "id": "1",
+        "name": "갈색 실눈 햄토리",
+        "image": "item1.png",
+        "price": "9.99",
+        "description": "갈색 실눈을 뜬 햄토리다." 
+      },
+      {
+        "id": "2",
+        "name": "검은색 큰눈 뚱토리",
+        "image": "item2.png",
+        "price": "7.99",
+        "description": "검은색 큰눈 뚱토리다."
+      },
+      {
+        "id": "3",
+        "name": "주황색 실눈 햄토리",
+        "image": "item3.png",
+        "price": "10.99",
+        "description": "주황색 실눈 햄토리다."
+      },
+      {
+        "id": "4",
+        "name": "흰색 큰눈 햄토리",
+        "price": "6.99",
+        "description": "흰색 큰눈 햄토리다."
+      },
+      {
+        "id": "5",
+        "name": "주황색 큰눈 햄토리",
+        "price": "15.99",
+        "description": "주황색 큰눈 햄토리다."
+      },
+      {
+        "id": "6",
+        "name": "회색 졸린눈 뚱토리",
+        "price": "3.99",
+        "description": "회색 졸린눈 뚱토리다."
+      },
+      {
+        "id": "7",
+        "name": "노랑색 큰눈 뚱토리",
+        "price": "5.99",
+        "description": "노랑색 큰눈 뚱토리다."
+      },
+      {
+        "id": "8",
+        "name": "회색 큰눈 햄토리",
+        "price": "12.99",
+        "description": "회색 큰눈 햄토리다."
+      }
+    ]
+}
+
