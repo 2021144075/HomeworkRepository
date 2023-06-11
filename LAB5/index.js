@@ -9,6 +9,7 @@ app.use(cors());
 app.use(express.static('public'));
 app.use(express.json());
 
+
 let products = [
   { id: 1, title: '갈색 실눈 햄토리', price: 9.99, category: '갈색', image: "item1.png" },
   { id: 2, title: '검은색 큰눈 뚱토리', price: 7.99, category: '검은색', image: "item2.png" },
@@ -72,18 +73,27 @@ app.get('/product/:productId', (req, res) => {
   } else {
     const reviews = product.reviews || [];
     res.send(`
+      <head>
+      <link rel="stylesheet" type="text/css" href="main.css">
+      </head>
+      <body>
+      <div class="container">
+        <div class="centered">
+        <div style="width: 1020px;">
       <h1>${product.title}</h1>
   
-      <p>product_id: ${product.id}</p>
-      <p>product image: <img src="https://github.com/2021144075/HomeworkRepository/blob/main/LAB3/item${product.id}.png?raw=true" alt="${product.title}" style="width: 200px;"></p>
-      <p>product Price: $${product.price}</p>
-      <p>product Category: ${product.category}</p>
+      <p style="color: blue;">product_id: ${product.id}</p>
+      <p style="color: red;">product image: <img src="https://github.com/2021144075/HomeworkRepository/blob/main/LAB3/item${product.id}.png?raw=true" alt="${product.title}" style="width: 200px;"></p>
+      <p style="color: orange;">product Price: $${product.price}</p>
+      <p style="color: green;">product Category: ${product.category}</p>
       <button onclick="openReviewModal(${productId})">리뷰 작성</button>
 
       <h2>Reviews</h2>
       <div id="reviewList">
         ${reviews.map(review => `<div><strong>${review.author}</strong>: ${review.content}</div>`).join('')}
       </div>
+      </div>
+      </div></div>
 
       <script>
         function openReviewModal(productId) {
