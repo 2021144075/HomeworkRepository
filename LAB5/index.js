@@ -55,7 +55,7 @@ app.post('/product/:productId/review', (req, res) => {
             console.error(err);
             res.status(500).send('Internal Server Error');
           } else {
-            res.status(200).json({ message: 'Review saved successfully' });
+            res.status(200).json({ message: '리뷰 작성을 완료하였습니다.' });
           }
         });
       }
@@ -73,9 +73,9 @@ app.get('/product/:productId', (req, res) => {
     const reviews = product.reviews || [];
     res.send(`
       <h1>${product.title}</h1>
-      <p><img src="item1.png" alt="asdf"></p>
+  
       <p>product_id: ${product.id}</p>
-      <p>product image: <img src="${product.image}" alt="${product.title}" style="width: 200px;"></p>
+      <p>product image: <img src="https://github.com/2021144075/HomeworkRepository/blob/main/LAB3/item${product.id}.png?raw=true" alt="${product.title}" style="width: 200px;"></p>
       <p>product Price: $${product.price}</p>
       <p>product Category: ${product.category}</p>
       <button onclick="openReviewModal(${productId})">리뷰 작성</button>
