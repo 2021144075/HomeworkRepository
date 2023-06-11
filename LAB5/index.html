@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Internet item shop</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div class="animation">
+        <h1>안녕하세요 마켓칼리입니다.</h1>
+    </div>
+
+    <div class="navigation">
+        <p>
+            <div class="w1">메인 페이지</div>
+            <div class="w2">
+                <a href="https://2021144075.github.io/HomeworkRepository/LAB5/signup.html">회원가입화면 바로가기</a>
+            </div>
+            <div class="w3">
+                <a href="https://2021144075.github.io/HomeworkRepository/LAB5/login.html">로그인화면 바로가기</a>
+            </div>
+        </p>
+    </div>
+
+    <div class="main">
+        <h2>HTML</h2>
+        <div>
+            <input type="text" id="searchInput" placeholder="Enter a keyword">
+            <button onclick="searchProduct(event)">Search</button>
+        </div>
+        <div id="productInfo"></div>
+    </div>
+
+    <select id="colorFilter">
+        <option value="">카테고리</option>
+        <option value="갈색">갈색</option>
+        <option value="주황색">주황색</option>
+        <option value="흰색">흰색</option>
+        <option value="회색">회색</option>
+        <option value="노랑색">노랑색</option>
+        <option value="검은색">검은색</option>
+    </select>
+    <hr class="horizontal-line">
+    <p></p>
+
+    <hr class="horizontal-line">
+    <p></p>
+
+    <div class="product">
+        <div class="image1">
+            <a href="http://localhost:3000/product/1">
+                <img src="item1.png" alt="item1" width="100" height="100">
+            </a>
+            <div class="text" data-id="1"></div>
+            <p class="description">
+                <div class="text">갈색 실눈을 뜬 햄토리다.  9.99달러</div>
+            </p>
+        </div>
+        <div class="image2">
+            <a href="http://localhost:3000/product/2">
+                <img src="item2.png" alt="item2" width="100" height="100">
+            </a>
+            <div class="text" data-id="2"></div>
+            <p class="description">
+                <div class="text">검은색 큰눈 뚱토리다.  7.99달러</div>
+            </p>
+        </div>
+
+        <div class="image3">
+            <a href="http://localhost:3000/product/3">
+                <img src="item3.png" alt="item3" width="100" height="100">
+            </a>
+            <div class="text" data-id="3"></div>
+            <p class="description">
+                <div class="text">주황색 실눈 햄토리다.  10.99달러</div>
+            </p>
+        </div>
+        <div class="image4">
+            <a href="http://localhost:3000/product/4">
+                <img src="item4.png" alt="item4" width="100" height="100">
+            </a>
+            <div class="text" data-id="4"></div>
+            <p class="description">
+                <div class="text">흰색 큰눈 햄토리다.  6.99달러</div>
+            </p>
+        </div>
+
+        <div class="image5">
+            <a href="http://localhost:3000/product/5">
+                <img src="item5.png" alt="item5" width="100" height="100">
+            </a>
+            <div class="text" data-id="5"></div>
+            <p class="description">
+                <div class="text">주황색 큰눈 햄토리다.  15.99달러</div>
+            </p>
+        </div>
+        <div class="image6">
+            <a href="http://localhost:3000/product/6">
+                <img src="item6.png" alt="item6" width="100" height="100">
+            </a>
+            <div class="text" data-id="6"></div>
+            <p class="description">
+                <div class="text">회색 졸린눈 뚱토리다.  3.99달러</div>
+            </p>
+        </div>
+
+        <div class="image7">
+            <a href="http://localhost:3000/product/7">
+                <img src="item7.png" alt="item7" width="100" height="100">
+            </a>
+            <div class="text" data-id="7"></div>
+            <p class="description">
+                <div class="text">노랑색 큰눈 뚱토리다.  5.99달러</div>
+            </p>
+        </div>
+        <div class="image8">
+            <a href="http://localhost:3000/product/8">
+                <img src="item8.png" alt="item8" width="100" height="100">
+            </a>
+            <div class="text" data-id="8"></div>
+            <p class="description">
+                <div class="text">회색 큰눈 햄토리다.  12.99달러</div>
+            </p>
+        </div>
+    </div>
+
+    <div id="productContainer"></div>
+
+    <script>
+        function searchProduct(event) {
+            event.preventDefault(); // 기본 동작 중지
+
+            const keyword = document.getElementById('searchInput').value;
+            const colorFilter = document.getElementById('colorFilter').value;
+
+            axios.get('http://localhost:3000/product')
+                .then(response => {
+                    const data = response.data;
+
+                    const filteredProducts = data.filter(product => {
+                        const productTitle = product['product title'];
+                        const productCategory = product['product category'];
+
+                        // 키워드 필터링
+                        const isKeywordMatch = (!keyword || (productTitle && typeof productTitle === 'string' && productTitle.toLowerCase().includes(keyword.toLowerCase())) ||
+                            (productCategory && typeof productCategory === 'string' && productCategory.toLowerCase().includes(keyword.toLowerCase())));
+
+                        // 드롭박스 필터링
+                        const isColorMatch = (!colorFilter || (productCategory && typeof productCategory === 'string' && productCategory.toLowerCase() === colorFilter.toLowerCase()));
+
+                        return isKeywordMatch && isColorMatch;
+                    });
+
+                    const productInfoContainer = document.getElementById('productInfo');
+                    productInfoContainer.innerHTML = '';
+
+                    filteredProducts.forEach(product => {
+                        const productTitle = product['product title'];
+                        const productCategory = product['product category'];
+                        const productImage = product['product image'];
+                        const productId = product['product_id']; // 상품 ID 추가
+
+                        const productElement = document.createElement('div');
+                        productElement.classList.add('product');
+
+                        const titleElement = document.createElement('h3');
+                        titleElement.textContent = productTitle;
+                        productElement.appendChild(titleElement);
+
+                        const categoryElement = document.createElement('p');
+                        categoryElement.textContent = productCategory;
+                        productElement.appendChild(categoryElement);
+
+                        const imageLinkElement = document.createElement('a'); // 링크 엘리먼트 생성
+                        imageLinkElement.href = `http://localhost:3000/product/${productId}`; // 링크 URL 설정
+                        const imageElement = document.createElement('img');
+                        imageElement.src = productImage;
+                        imageLinkElement.appendChild(imageElement); // 이미지를 링크 엘리먼트에 추가
+                        productElement.appendChild(imageLinkElement); // 링크 엘리먼트를 상품 엘리먼트에 추가
+
+                        productInfoContainer.appendChild(productElement);
+                    });
+                })
+                .catch(error => console.error(error));
+        }
+    </script>
+</body>
+</html>

@@ -27,6 +27,15 @@ h1 {
 
 }
 
+.horizontal-line {
+    width: 500px;
+    height: 3px;
+    background-color: rgb(154, 12, 12);
+    border: none;
+    display: block;
+    margin: 10px 0 10px 0;
+}
+
 .third {
     color:rgb(105, 61, 7);
 }
